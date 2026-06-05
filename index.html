@@ -3,10 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- =====================================================================
-     Blog milik Patir. Untuk ubah isi tulisan, edit langsung bagian
-     <article> dan teks di dalamnya.
-===================================================================== -->
 <title>Belajar Hiragana — Blog Patir</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,45 +30,25 @@
 
   .wrap{max-width:680px;margin:0 auto;padding:0 16px;position:relative;z-index:2;}
 
-  /* ---------- NAV ---------- */
-  nav{
-    position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;
-    padding:14px 18px;margin:0 -16px 0;backdrop-filter:blur(8px);
-    background:rgba(255,255,255,.55);border-bottom:2px solid var(--border);
-  }
-  nav .brand{font-family:"Fredoka",sans-serif;font-weight:700;font-size:17px;display:flex;align-items:center;gap:9px;}
+  nav{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;margin:0 -16px 0;backdrop-filter:blur(8px);background:rgba(255,255,255,.55);border-bottom:2px solid var(--border);}
+  nav .brand{font-family:"Fredoka",sans-serif;font-weight:700;font-size:17px;display:flex;align-items:center;gap:9px;cursor:pointer;}
   nav .brand .mark{background:var(--violet);color:#fff;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-family:"Zen Maru Gothic",sans-serif;border:2px solid var(--border);}
-  nav .navlinks{display:flex;gap:18px;}
-  nav .navlinks a{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--ink-soft);text-decoration:none;transition:.2s;}
+  nav .navlinks a{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--ink-soft);text-decoration:none;cursor:pointer;transition:.2s;}
   nav .navlinks a:hover{color:var(--violet);}
-  @media(max-width:520px){nav .navlinks a:last-child{display:none;}}
 
-  /* ---------- HERO ---------- */
-  .hero{text-align:center;padding:48px 0 26px;}
+  .hero{text-align:center;padding:48px 0 30px;}
   .hero .kicker{font-family:"Fredoka",sans-serif;font-weight:600;color:var(--violet);font-size:15px;letter-spacing:1px;text-transform:uppercase;}
   .hero h1{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(34px,8vw,52px);line-height:1.05;margin:12px 0;}
   .hero h1 .hl{color:var(--violet);}
-  .hero p{font-weight:700;color:var(--ink-soft);font-size:17px;max-width:480px;margin:0 auto;}
-
-  /* ---------- ARTICLE / POST ---------- */
-  article{
-    background:var(--card);border:3px solid var(--border);border-radius:26px;
-    box-shadow:8px 8px 0 var(--shadow);padding:30px 26px;margin-bottom:34px;
-  }
-  article .meta{font-family:"Fredoka",sans-serif;font-weight:500;font-size:13px;color:var(--ink-soft);margin-bottom:8px;}
-  article .meta .pill{background:var(--yellow);color:var(--ink);padding:3px 12px;border-radius:20px;border:2px solid var(--border);font-weight:700;}
-  article h2{font-family:"Fredoka",sans-serif;font-weight:700;font-size:26px;margin:6px 0 16px;line-height:1.2;}
-  article p{font-weight:600;font-size:16.5px;line-height:1.7;color:#3a3450;margin-bottom:15px;}
-  article p b{color:var(--violet-deep);}
-  article .author{display:flex;align-items:center;gap:13px;margin-top:22px;padding-top:18px;border-top:2px dashed var(--border);}
-  article .author .ava{width:48px;height:48px;border-radius:14px;background:var(--coral);border:2px solid var(--border);display:grid;place-items:center;font-family:"Fredoka",sans-serif;font-weight:700;color:#fff;font-size:20px;flex-shrink:0;}
-  article .author .who b{font-family:"Fredoka",sans-serif;font-size:15px;display:block;}
-  article .author .who span{font-weight:700;font-size:13px;color:var(--ink-soft);}
+  .hero p{font-weight:700;color:var(--ink-soft);font-size:17px;max-width:480px;margin:0 auto 8px;}
 
   .section-title{font-family:"Fredoka",sans-serif;font-weight:700;font-size:22px;text-align:center;margin:6px 0 18px;}
   .section-title small{display:block;font-size:13px;color:var(--ink-soft);font-weight:600;margin-top:2px;}
 
-  /* ---------- QUIZ ---------- */
+  .quiz-head{text-align:center;margin-bottom:18px;}
+  .quiz-head h2{font-family:"Fredoka",sans-serif;font-weight:700;font-size:26px;}
+  .quiz-head small{display:block;font-size:13px;color:var(--ink-soft);font-weight:600;margin-top:2px;}
+
   .card{background:var(--card);border:3px solid var(--border);border-radius:28px;box-shadow:8px 8px 0 var(--shadow);padding:26px 22px 24px;position:relative;transition:box-shadow .15s,transform .15s;}
   .card.flash-ok{animation:flashOk .5s;}
   .card.flash-no{animation:flashNo .45s;}
@@ -133,6 +109,7 @@
   .miss-chip .h{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:24px;}
   .miss-chip .r{font-weight:800;font-size:13px;color:var(--ink-soft);}
   .hidden{display:none!important;}
+  .quiz-view{padding-top:26px;}
   footer{text-align:center;margin-top:34px;font-weight:800;font-size:13px;color:var(--ink-soft);}
   footer span{color:var(--violet);}
   @media(max-width:420px){.romaji{font-size:54px;}.opt{height:90px;font-size:40px;}}
@@ -142,60 +119,63 @@
 <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
 
 <nav>
-  <div class="brand"><span class="mark">あ</span> Patir</div>
-  <div class="navlinks">
-    <a href="#quiz">Main Quiz</a>
-  </div>
+  <div class="brand" id="brandHome"><span class="mark">あ</span> Patir</div>
+  <div class="navlinks"><a id="navHome">Beranda</a></div>
 </nav>
 
 <div class="wrap">
 
-  <!-- ========== HERO ========== -->
-  <section class="hero">
-    <div class="kicker">Blog Belajar Bahasa Jepang</div>
-    <h1>Yuk, Kenalan dengan <span class="hl">Hiragana</span></h1>
-    <p>Tempat aku berbagi catatan belajar bahasa Jepang — sekalian latihan lewat quiz interaktif.</p>
-  </section>
+  <!-- =================== HALAMAN DEPAN =================== -->
+  <div id="landing">
+    <section class="hero">
+      <div class="kicker">Blog Belajar Bahasa Jepang</div>
+      <h1>Yuk, Kenalan dengan <span class="hl">Hiragana</span></h1>
+      <p>Tempat aku berbagi catatan belajar bahasa Jepang — sekalian latihan lewat quiz interaktif.</p>
+    </section>
 
-  <!-- ========== QUIZ ========== -->
-  <div class="section-title" id="quiz">Quiz Hiragana<small>ひらがな 〜 46 karakter dasar</small></div>
+    <div class="section-title">Quiz Hiragana<small>ひらがな 〜 46 karakter dasar</small></div>
 
-  <!-- START -->
-  <div class="card intro" id="screen-start">
-    <p class="lead">Latih baca <b>46 hiragana</b> sambil seru-seruan! Soal &amp; jawaban diacak tiap ronde.</p>
-    <div class="feat">
-      <div><span class="ic" style="background:var(--violet)"></span> 46 soal acak tiap main</div>
-      <div><span class="ic" style="background:var(--mint)"></span> Benar bikin hijau, salah merah</div>
-      <div><span class="ic" style="background:var(--yellow)"></span> Skor + rekap yang masih salah</div>
+    <div class="card intro" id="screen-start">
+      <p class="lead">Latih baca <b>46 hiragana</b> sambil seru-seruan! Soal &amp; jawaban diacak tiap ronde.</p>
+      <div class="feat">
+        <div><span class="ic" style="background:var(--violet)"></span> 46 soal acak tiap main</div>
+        <div><span class="ic" style="background:var(--mint)"></span> Benar bikin hijau, salah merah</div>
+        <div><span class="ic" style="background:var(--yellow)"></span> Skor + rekap yang masih salah</div>
+      </div>
+      <div class="label-q">Pilih arah soal:</div>
+      <div class="mode-row" id="modeRow">
+        <button class="mode-btn active" data-mode="r2h"><span class="big">a→あ</span><span class="lab">Romaji ke Hiragana</span></button>
+        <button class="mode-btn" data-mode="h2r"><span class="big">あ→a</span><span class="lab">Hiragana ke Romaji</span></button>
+      </div>
+      <button class="btn" id="startBtn">Mulai! 〜 始める</button>
     </div>
-    <div class="label-q">Pilih arah soal:</div>
-    <div class="mode-row" id="modeRow">
-      <button class="mode-btn active" data-mode="r2h"><span class="big">a→あ</span><span class="lab">Romaji ke Hiragana</span></button>
-      <button class="mode-btn" data-mode="h2r"><span class="big">あ→a</span><span class="lab">Hiragana ke Romaji</span></button>
-    </div>
-    <button class="btn" id="startBtn">Mulai! 〜 始める</button>
   </div>
 
-  <!-- QUIZ -->
-  <div class="card hidden" id="screen-quiz">
-    <div class="topbar"><span class="counter" id="counter">Soal 1 / 46</span><span class="score-pill" id="scorePill">Benar: 0</span></div>
-    <div class="progress"><span id="progressBar"></span></div>
-    <div class="q-label" id="qLabel">Pilih hiragana untuk</div>
-    <div class="romaji" id="promptText">a</div>
-    <div class="options" id="options"></div>
-    <div class="next-wrap"><div class="feedback" id="feedback"></div><button class="btn coral hidden" id="nextBtn">Lanjut 〜 次へ</button></div>
+  <!-- =================== HALAMAN QUIZ =================== -->
+  <div id="screen-quiz" class="quiz-view hidden">
+    <div class="quiz-head"><h2>Quiz Hiragana</h2><small>Pilih jawaban yang benar</small></div>
+    <div class="card">
+      <div class="topbar"><span class="counter" id="counter">Soal 1 / 46</span><span class="score-pill" id="scorePill">Benar: 0</span></div>
+      <div class="progress"><span id="progressBar"></span></div>
+      <div class="q-label" id="qLabel">Pilih hiragana untuk</div>
+      <div class="romaji" id="promptText">a</div>
+      <div class="options" id="options"></div>
+      <div class="next-wrap"><div class="feedback" id="feedback"></div><button class="btn coral hidden" id="nextBtn">Lanjut 〜 次へ</button></div>
+    </div>
   </div>
 
-  <!-- RESULT -->
-  <div class="card result hidden" id="screen-result">
-    <div class="stamp" id="resultEmoji">満</div>
-    <h2 id="resultTitle">Selesai!</h2>
-    <div class="pct" id="resultPct">0%</div>
-    <div class="score-line" id="resultScore">0 dari 46 benar</div>
-    <div class="verdict" id="resultVerdict"></div>
-    <div class="miss-box hidden" id="missBox"><h3>Yang masih salah</h3><div class="miss-grid" id="missGrid"></div></div>
-    <button class="btn" id="retryBtn" style="margin-bottom:11px;">Main Lagi (acak ulang)</button>
-    <button class="btn ghost" id="homeBtn">Kembali ke Awal</button>
+  <!-- =================== HALAMAN HASIL =================== -->
+  <div id="screen-result" class="quiz-view hidden">
+    <div class="card result">
+      <div class="stamp" id="resultEmoji">満</div>
+      <h2 id="resultTitle">Selesai!</h2>
+      <div class="pct" id="resultPct">0%</div>
+      <div class="score-line" id="resultScore">0 dari 46 benar</div>
+      <div class="verdict" id="resultVerdict"></div>
+      <div class="miss-box hidden" id="missBox"><h3>Yang masih salah</h3><div class="miss-grid" id="missGrid"></div></div>
+      <button class="btn" id="retryBtn" style="margin-bottom:11px;">Main Lagi (acak ulang)</button>
+      <button class="btn ghost" id="homeBtn">Kembali ke Beranda</button>
+    </div>
   </div>
 
   <footer>© <span id="year"></span> Blog Patir · dibuat untuk belajar ひらがな</footer>
@@ -217,13 +197,25 @@ const HIRAGANA=[
 let mode="r2h",deck=[],idx=0,score=0,answered=false,missed=[];
 const $=id=>document.getElementById(id);
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
-const show=s=>{["screen-start","screen-quiz","screen-result"].forEach(x=>$(x).classList.add("hidden"));$(s).classList.remove("hidden");};
+
+// --- pindah "halaman" (view) ---
+function goView(name){
+  ["landing","screen-quiz","screen-result"].forEach(id=>$(id).classList.add("hidden"));
+  $(name).classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function goHome(){goView("landing");}
+
 $("year").textContent=new Date().getFullYear();
+$("brandHome").onclick=goHome;
+$("navHome").onclick=goHome;
 $("modeRow").onclick=e=>{const b=e.target.closest(".mode-btn");if(!b)return;document.querySelectorAll(".mode-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");mode=b.dataset.mode;};
 $("startBtn").onclick=$("retryBtn").onclick=startQuiz;
-$("homeBtn").onclick=()=>{show("screen-start");document.getElementById("quiz").scrollIntoView({behavior:"smooth"});};
+$("homeBtn").onclick=goHome;
 $("nextBtn").onclick=()=>{idx++;idx<deck.length?renderQuestion():finish();};
-function startQuiz(){deck=shuffle(HIRAGANA);idx=0;score=0;missed=[];show("screen-quiz");renderQuestion();}
+
+function startQuiz(){deck=shuffle(HIRAGANA);idx=0;score=0;missed=[];goView("screen-quiz");renderQuestion();}
+
 function renderQuestion(){
   answered=false;const q=deck[idx];
   if(mode==="r2h"){$("qLabel").textContent="Pilih hiragana untuk";$("promptText").textContent=q.r;$("promptText").style.fontFamily='"Fredoka",sans-serif';}
@@ -255,7 +247,7 @@ function choose(el,chosen,q){
     else if(o===el){o.classList.add("wrong");o.querySelector(".tag").textContent="✕";}
     else o.classList.add("dim");
   });
-  const card=$("screen-quiz");
+  const card=$("screen-quiz").querySelector(".card");
   if(correct){score++;$("feedback").textContent="正解！ Benar";$("feedback").className="feedback ok show";card.classList.add("flash-ok");confetti();}
   else{missed.push(q);$("feedback").textContent=`Yah salah 〜 ${q.r} = ${q.h}`;$("feedback").className="feedback no show";card.classList.add("flash-no");}
   setTimeout(()=>card.classList.remove("flash-ok","flash-no"),500);
@@ -277,7 +269,7 @@ function confetti(){
 }
 function finish(){
   const total=deck.length,pct=Math.round(score/total*100);
-  show("screen-result");
+  goView("screen-result");
   $("resultPct").textContent=pct+"%";$("resultScore").textContent=`${score} dari ${total} benar`;
   let emoji,title,verdict;
   if(pct===100){emoji="満";title="Sempurna! 完璧";verdict="Gila, semua bener! Lanjut ke katakana atau dakuten (が、ざ、だ…) yuk.";}
