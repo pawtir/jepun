@@ -129,18 +129,23 @@
   <div id="landing">
     <section class="hero">
       <div class="kicker">Blog Belajar Bahasa Jepang</div>
-      <h1>Yuk, Kenalan dengan <span class="hl">Hiragana</span></h1>
+      <h1>Yuk, Belajar <span class="hl">Hiragana &amp; Katakana</span></h1>
       <p>Tempat aku berbagi catatan belajar bahasa Jepang — sekalian latihan lewat quiz interaktif.</p>
     </section>
 
-    <div class="section-title">Quiz Hiragana<small>ひらがな 〜 46 karakter dasar</small></div>
+    <div class="section-title">Quiz Kana<small>ひらがな・カタカナ 〜 masing-masing 46 karakter</small></div>
 
     <div class="card intro" id="screen-start">
-      <p class="lead">Latih baca <b>46 hiragana</b> sambil seru-seruan! Soal &amp; jawaban diacak tiap ronde.</p>
+      <p class="lead">Latih baca <b>hiragana &amp; katakana</b> sambil seru-seruan! Soal &amp; jawaban diacak tiap ronde.</p>
       <div class="feat">
         <div><span class="ic" style="background:var(--violet)"></span> 46 soal acak tiap main</div>
         <div><span class="ic" style="background:var(--mint)"></span> Benar bikin hijau, salah merah</div>
         <div><span class="ic" style="background:var(--yellow)"></span> Skor + rekap yang masih salah</div>
+      </div>
+      <div class="label-q">Pilih jenis huruf:</div>
+      <div class="mode-row" id="scriptRow">
+        <button class="mode-btn active" data-script="hira"><span class="big">あ</span><span class="lab">Hiragana</span></button>
+        <button class="mode-btn" data-script="kata"><span class="big">ア</span><span class="lab">Katakana</span></button>
       </div>
       <div class="label-q">Pilih arah soal:</div>
       <div class="mode-row" id="modeRow">
@@ -153,7 +158,7 @@
 
   <!-- =================== HALAMAN QUIZ =================== -->
   <div id="screen-quiz" class="quiz-view hidden">
-    <div class="quiz-head"><h2>Quiz Hiragana</h2><small>Pilih jawaban yang benar</small></div>
+    <div class="quiz-head"><h2 id="quizTitle">Quiz Hiragana</h2><small>Pilih jawaban yang benar</small></div>
     <div class="card">
       <div class="topbar"><span class="counter" id="counter">Soal 1 / 46</span><span class="score-pill" id="scorePill">Benar: 0</span></div>
       <div class="progress"><span id="progressBar"></span></div>
@@ -194,7 +199,21 @@ const HIRAGANA=[
  {h:"ら",r:"ra"},{h:"り",r:"ri"},{h:"る",r:"ru"},{h:"れ",r:"re"},{h:"ろ",r:"ro"},
  {h:"わ",r:"wa"},{h:"を",r:"wo"},{h:"ん",r:"n"}
 ];
-let mode="r2h",deck=[],idx=0,score=0,answered=false,missed=[];
+const KATAKANA=[
+ {h:"ア",r:"a"},{h:"イ",r:"i"},{h:"ウ",r:"u"},{h:"エ",r:"e"},{h:"オ",r:"o"},
+ {h:"カ",r:"ka"},{h:"キ",r:"ki"},{h:"ク",r:"ku"},{h:"ケ",r:"ke"},{h:"コ",r:"ko"},
+ {h:"サ",r:"sa"},{h:"シ",r:"shi"},{h:"ス",r:"su"},{h:"セ",r:"se"},{h:"ソ",r:"so"},
+ {h:"タ",r:"ta"},{h:"チ",r:"chi"},{h:"ツ",r:"tsu"},{h:"テ",r:"te"},{h:"ト",r:"to"},
+ {h:"ナ",r:"na"},{h:"ニ",r:"ni"},{h:"ヌ",r:"nu"},{h:"ネ",r:"ne"},{h:"ノ",r:"no"},
+ {h:"ハ",r:"ha"},{h:"ヒ",r:"hi"},{h:"フ",r:"fu"},{h:"ヘ",r:"he"},{h:"ホ",r:"ho"},
+ {h:"マ",r:"ma"},{h:"ミ",r:"mi"},{h:"ム",r:"mu"},{h:"メ",r:"me"},{h:"モ",r:"mo"},
+ {h:"ヤ",r:"ya"},{h:"ユ",r:"yu"},{h:"ヨ",r:"yo"},
+ {h:"ラ",r:"ra"},{h:"リ",r:"ri"},{h:"ル",r:"ru"},{h:"レ",r:"re"},{h:"ロ",r:"ro"},
+ {h:"ワ",r:"wa"},{h:"ヲ",r:"wo"},{h:"ン",r:"n"}
+];
+let script="hira",mode="r2h",deck=[],idx=0,score=0,answered=false,missed=[];
+const DATA=()=>script==="hira"?HIRAGANA:KATAKANA;
+const scriptName=()=>script==="hira"?"Hiragana":"Katakana";
 const $=id=>document.getElementById(id);
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 
@@ -209,18 +228,19 @@ function goHome(){goView("landing");}
 $("year").textContent=new Date().getFullYear();
 $("brandHome").onclick=goHome;
 $("navHome").onclick=goHome;
-$("modeRow").onclick=e=>{const b=e.target.closest(".mode-btn");if(!b)return;document.querySelectorAll(".mode-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");mode=b.dataset.mode;};
+$("scriptRow").onclick=e=>{const b=e.target.closest(".mode-btn");if(!b)return;$("scriptRow").querySelectorAll(".mode-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");script=b.dataset.script;};
+$("modeRow").onclick=e=>{const b=e.target.closest(".mode-btn");if(!b)return;$("modeRow").querySelectorAll(".mode-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");mode=b.dataset.mode;};
 $("startBtn").onclick=$("retryBtn").onclick=startQuiz;
 $("homeBtn").onclick=goHome;
 $("nextBtn").onclick=()=>{idx++;idx<deck.length?renderQuestion():finish();};
 
-function startQuiz(){deck=shuffle(HIRAGANA);idx=0;score=0;missed=[];goView("screen-quiz");renderQuestion();}
+function startQuiz(){deck=shuffle(DATA());idx=0;score=0;missed=[];$("quizTitle").textContent="Quiz "+scriptName();goView("screen-quiz");renderQuestion();}
 
 function renderQuestion(){
   answered=false;const q=deck[idx];
-  if(mode==="r2h"){$("qLabel").textContent="Pilih hiragana untuk";$("promptText").textContent=q.r;$("promptText").style.fontFamily='"Fredoka",sans-serif';}
+  if(mode==="r2h"){$("qLabel").textContent="Pilih "+scriptName().toLowerCase()+" untuk";$("promptText").textContent=q.r;$("promptText").style.fontFamily='"Fredoka",sans-serif';}
   else{$("qLabel").textContent="Apa bunyi (romaji) dari";$("promptText").textContent=q.h;$("promptText").style.fontFamily='"Zen Maru Gothic",sans-serif';}
-  const choices=shuffle([q,...shuffle(HIRAGANA.filter(x=>x.h!==q.h)).slice(0,3)]);
+  const choices=shuffle([q,...shuffle(DATA().filter(x=>x.h!==q.h)).slice(0,3)]);
   const box=$("options");box.innerHTML="";
   choices.forEach(c=>{
     const el=document.createElement("button");el.className="opt";
@@ -282,7 +302,7 @@ function finish(){
   const box=$("missBox"),grid=$("missGrid");
   if(missed.length){
     grid.innerHTML="";const seen=new Set();
-    HIRAGANA.forEach(k=>{if(missed.some(m=>m.h===k.h)&&!seen.has(k.h)){seen.add(k.h);
+    DATA().forEach(k=>{if(missed.some(m=>m.h===k.h)&&!seen.has(k.h)){seen.add(k.h);
       const chip=document.createElement("div");chip.className="miss-chip";
       chip.innerHTML=`<span class="h">${k.h}</span><span class="r">${k.r}</span>`;grid.appendChild(chip);}});
     box.classList.remove("hidden");
