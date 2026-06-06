@@ -82,7 +82,7 @@
   .romaji{text-align:center;font-family:"Fredoka",sans-serif;font-weight:700;font-size:66px;line-height:1.1;margin:6px 0 20px;color:var(--ink);animation:pop .35s;}
   @keyframes pop{from{opacity:0;transform:scale(.7);}to{opacity:1;transform:none;}}
   .options{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  .opt{position:relative;cursor:pointer;border:3px solid var(--border);background:#fff;border-radius:22px;height:104px;display:flex;align-items:center;justify-content:center;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:46px;color:var(--ink);box-shadow:4px 4px 0 var(--shadow);transition:.12s;}
+  .opt{position:relative;cursor:pointer;border:3px solid var(--border);background:#fff;border-radius:22px;height:88px;display:flex;align-items:center;justify-content:center;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:42px;color:var(--ink);box-shadow:4px 4px 0 var(--shadow);transition:.12s;}
   .opt:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--shadow);border-color:var(--violet);}
   .opt:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--shadow);}
   .opt.correct{background:linear-gradient(160deg,var(--mint),#13a87f);color:#fff;animation:bounce .45s;}
@@ -120,7 +120,7 @@
   .quiz-view{padding-top:24px;}
   footer{text-align:center;margin-top:34px;font-weight:800;font-size:13px;color:var(--txt-dim);}
   footer span{color:var(--yellow);}
-  @media(max-width:420px){.romaji{font-size:54px;}.opt{height:90px;font-size:40px;}}
+  @media(max-width:420px){.romaji{font-size:54px;}.opt{height:76px;font-size:36px;}}
 </style>
 </head>
 <body>
@@ -341,7 +341,7 @@ function renderQuestion(){
   answered=false;const q=deck[idx];
   if(mode==="r2h"){$("qLabel").textContent="Pilih "+scriptName().toLowerCase()+" untuk";$("promptText").textContent=q.r;$("promptText").style.fontFamily='"Fredoka",sans-serif';}
   else{$("qLabel").textContent="Apa bunyi (romaji) dari";$("promptText").textContent=q.h;$("promptText").style.fontFamily='"Zen Maru Gothic",sans-serif';}
-  const choices=shuffle([q,...shuffle(DATA().filter(x=>x.h!==q.h)).slice(0,3)]);
+  const choices=shuffle([q,...shuffle(DATA().filter(x=>x.h!==q.h)).slice(0,7)]);
   const box=$("options");box.innerHTML="";
   choices.forEach(c=>{
     const el=document.createElement("button");el.className="opt";
