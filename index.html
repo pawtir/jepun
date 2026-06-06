@@ -3,87 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Belajar Hiragana — Blog Patir</title>
+<title>Patir — Belajar Hiragana & Katakana</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg1:#ffd9e8;--bg2:#c8eaff;--bg3:#fff3c4;
     --ink:#241b3a;--ink-soft:#6b6486;--card:#ffffff;
-    --violet:#7c4dff;--violet-deep:#5b2ee0;--coral:#ff5d73;
-    --mint:#1fbf8f;--red:#ff4757;--yellow:#ffc93c;
-    --border:#241b3a;--shadow:#241b3a;
+    --violet:#8b5cff;--violet-deep:#6a35ff;--coral:#ff5d73;
+    --mint:#1fc99a;--red:#ff4757;--yellow:#ffd23c;--sky:#3dd4ff;
+    --border:#1a1330;--shadow:#080418;
+    --txt-light:#f4f0ff;--txt-dim:rgba(244,240,255,.72);
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html{scroll-behavior:smooth;}
   body{
-    font-family:"Nunito",sans-serif;color:var(--ink);
-    background:linear-gradient(135deg,var(--bg1),var(--bg2) 50%,var(--bg3));
-    background-attachment:fixed;min-height:100vh;padding-bottom:50px;
+    font-family:"Nunito",sans-serif;color:var(--ink);min-height:100vh;padding-bottom:50px;
+    background:linear-gradient(135deg,#1b1140,#3a1c6e,#241b3a,#102a4c);
+    background-size:320% 320%;animation:bgmove 22s ease infinite;background-attachment:fixed;
   }
-  .blob{position:fixed;border-radius:50%;filter:blur(8px);opacity:.45;z-index:0;animation:float 9s ease-in-out infinite;}
-  .blob.b1{width:130px;height:130px;background:var(--yellow);top:6%;left:5%;}
-  .blob.b2{width:90px;height:90px;background:var(--coral);bottom:12%;right:7%;animation-delay:-3s;}
-  .blob.b3{width:70px;height:70px;background:var(--violet);top:46%;right:10%;animation-delay:-5s;opacity:.3;}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+  @keyframes bgmove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  /* moving kana background */
+  #bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
+  .glow{position:fixed;border-radius:50%;filter:blur(60px);z-index:0;pointer-events:none;opacity:.5;}
+  .glow.g1{width:300px;height:300px;background:#6a35ff;top:-60px;left:-60px;}
+  .glow.g2{width:260px;height:260px;background:#ff5d73;bottom:-50px;right:-40px;opacity:.35;}
 
   .wrap{max-width:680px;margin:0 auto;padding:0 16px;position:relative;z-index:2;}
 
-  nav{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;margin:0 -16px 0;backdrop-filter:blur(8px);background:rgba(255,255,255,.55);border-bottom:2px solid var(--border);}
-  nav .brand{font-family:"Fredoka",sans-serif;font-weight:700;font-size:17px;display:flex;align-items:center;gap:9px;cursor:pointer;}
-  nav .brand .mark{background:var(--violet);color:#fff;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-family:"Zen Maru Gothic",sans-serif;border:2px solid var(--border);}
-  nav .navlinks a{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--ink-soft);text-decoration:none;cursor:pointer;transition:.2s;}
-  nav .navlinks a:hover{color:var(--violet);}
+  nav{position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:12px 18px;margin:0 -16px;backdrop-filter:blur(10px);background:rgba(26,19,48,.55);border-bottom:1px solid rgba(255,255,255,.12);}
+  nav .brand{font-family:"Fredoka",sans-serif;font-weight:700;font-size:17px;color:var(--txt-light);display:flex;align-items:center;gap:9px;cursor:pointer;}
+  nav .brand .mark{background:linear-gradient(160deg,var(--violet),var(--coral));color:#fff;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-family:"Zen Maru Gothic",sans-serif;border:2px solid var(--border);}
+  nav .navright{display:flex;align-items:center;gap:14px;}
+  nav .navright a{font-family:"Fredoka",sans-serif;font-weight:500;font-size:14px;color:var(--txt-dim);text-decoration:none;cursor:pointer;}
+  nav .navright a:hover{color:#fff;}
+  .sound-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:12px;width:38px;height:38px;display:grid;place-items:center;cursor:pointer;font-size:16px;transition:.1s;}
+  .sound-btn:active{transform:scale(.92);}
+  .sound-btn.on{background:linear-gradient(160deg,var(--violet),var(--coral));border-color:var(--border);box-shadow:0 0 14px rgba(139,92,255,.7);}
 
-  .hero{text-align:center;padding:48px 0 30px;}
-  .hero .kicker{font-family:"Fredoka",sans-serif;font-weight:600;color:var(--violet);font-size:15px;letter-spacing:1px;text-transform:uppercase;}
-  .hero h1{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(34px,8vw,52px);line-height:1.05;margin:12px 0;}
-  .hero h1 .hl{color:var(--violet);}
-  .hero p{font-weight:700;color:var(--ink-soft);font-size:17px;max-width:480px;margin:0 auto 8px;}
+  .hero{text-align:center;padding:50px 0 28px;}
+  .hero .kicker{font-family:"Fredoka",sans-serif;font-weight:600;color:var(--yellow);font-size:14px;letter-spacing:2px;text-transform:uppercase;}
+  .hero h1{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(40px,10vw,68px);line-height:1;margin:12px 0;color:var(--txt-light);text-shadow:0 4px 30px rgba(139,92,255,.6);}
+  .hero h1 .hl{background:linear-gradient(120deg,var(--coral),var(--yellow));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero p{font-weight:700;color:var(--txt-dim);font-size:17px;max-width:480px;margin:0 auto;}
 
-  .section-title{font-family:"Fredoka",sans-serif;font-weight:700;font-size:22px;text-align:center;margin:6px 0 18px;}
-  .section-title small{display:block;font-size:13px;color:var(--ink-soft);font-weight:600;margin-top:2px;}
+  .section-title{font-family:"Fredoka",sans-serif;font-weight:700;font-size:22px;text-align:center;margin:28px 0 18px;color:var(--txt-light);}
+  .section-title small{display:block;font-size:13px;color:var(--txt-dim);font-weight:600;margin-top:2px;}
 
-  .quiz-head{text-align:center;margin-bottom:18px;}
-  .quiz-head h2{font-family:"Fredoka",sans-serif;font-weight:700;font-size:26px;}
-  .quiz-head small{display:block;font-size:13px;color:var(--ink-soft);font-weight:600;margin-top:2px;}
-
-  .card{background:var(--card);border:3px solid var(--border);border-radius:28px;box-shadow:8px 8px 0 var(--shadow);padding:26px 22px 24px;position:relative;transition:box-shadow .15s,transform .15s;}
+  .card{background:var(--card);border:3px solid var(--border);border-radius:28px;box-shadow:8px 8px 0 var(--shadow),0 0 40px -10px rgba(139,92,255,.5);padding:26px 22px 24px;position:relative;transition:box-shadow .15s,transform .15s;}
   .card.flash-ok{animation:flashOk .5s;}
   .card.flash-no{animation:flashNo .45s;}
-  @keyframes flashOk{0%,100%{box-shadow:8px 8px 0 var(--shadow);}40%{box-shadow:0 0 0 6px var(--mint),8px 8px 0 var(--shadow);}}
-  @keyframes flashNo{0%,100%{transform:translateX(0);box-shadow:8px 8px 0 var(--shadow);}20%{transform:translateX(-9px);}40%{transform:translateX(8px);}60%{transform:translateX(-6px);}80%{transform:translateX(4px);box-shadow:0 0 0 6px var(--red),8px 8px 0 var(--shadow);}}
-  .intro p.lead{font-weight:700;color:var(--ink-soft);line-height:1.6;font-size:15px;margin-bottom:14px;text-align:center;}
-  .feat{display:flex;flex-direction:column;gap:10px;margin:0 0 20px;}
-  .feat div{background:#f5f1ff;border:2px solid var(--border);border-radius:16px;padding:11px 16px;font-weight:800;font-size:14px;display:flex;align-items:center;gap:10px;}
-  .feat div .ic{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;}
+  @keyframes flashOk{0%,100%{box-shadow:8px 8px 0 var(--shadow),0 0 40px -10px rgba(139,92,255,.5);}40%{box-shadow:0 0 0 6px var(--mint),0 0 50px 0 var(--mint);}}
+  @keyframes flashNo{0%,100%{transform:translateX(0);}20%{transform:translateX(-9px);}40%{transform:translateX(8px);}60%{transform:translateX(-6px);}80%{transform:translateX(4px);box-shadow:0 0 0 6px var(--red),0 0 50px 0 var(--red);}}
+  .intro p.lead{font-weight:700;color:var(--ink-soft);line-height:1.6;font-size:15px;margin-bottom:16px;text-align:center;}
   .label-q{font-family:"Fredoka",sans-serif;font-weight:600;font-size:15px;text-align:center;margin-bottom:12px;}
-  .mode-row{display:flex;gap:12px;margin-bottom:22px;}
+  .mode-row{display:flex;gap:12px;margin-bottom:20px;}
   .mode-btn{flex:1;background:#fff;border:3px solid var(--border);border-radius:20px;padding:16px 8px;cursor:pointer;text-align:center;font-family:inherit;box-shadow:3px 3px 0 var(--shadow);transition:.13s;}
-  .mode-btn .big{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:26px;display:block;}
+  .mode-btn .big{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:26px;display:block;color:var(--ink);}
   .mode-btn .lab{font-size:12px;font-weight:800;color:var(--ink-soft);margin-top:4px;}
-  .mode-btn.active{background:var(--yellow);transform:translate(-1px,-1px);}
+  .mode-btn.active{background:linear-gradient(160deg,#fff,#efe7ff);border-color:var(--violet);box-shadow:3px 3px 0 var(--violet);transform:translate(-1px,-1px);}
   .mode-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--shadow);}
-  .btn{width:100%;border:3px solid var(--border);cursor:pointer;font-family:"Fredoka",sans-serif;font-weight:700;font-size:18px;color:#fff;background:var(--violet);padding:16px;border-radius:20px;box-shadow:5px 5px 0 var(--shadow);transition:.12s;}
+  .btn{width:100%;border:3px solid var(--border);cursor:pointer;font-family:"Fredoka",sans-serif;font-weight:700;font-size:18px;color:#fff;background:linear-gradient(160deg,var(--violet),var(--violet-deep));padding:16px;border-radius:20px;box-shadow:5px 5px 0 var(--shadow);transition:.12s;}
   .btn:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--shadow);}
   .btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--shadow);}
-  .btn.coral{background:var(--coral);}
+  .btn.coral{background:linear-gradient(160deg,var(--coral),#e83e57);}
   .btn.ghost{background:#fff;color:var(--ink);box-shadow:4px 4px 0 var(--shadow);}
-  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px;}
   .counter{font-weight:900;font-size:14px;color:var(--ink-soft);}
-  .score-pill{font-family:"Fredoka",sans-serif;font-weight:700;font-size:14px;color:#fff;background:var(--mint);padding:5px 14px;border-radius:30px;border:2px solid var(--border);}
-  .progress{height:14px;background:#eee;border:2px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:22px;}
-  .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--yellow),var(--coral),var(--violet));transition:width .4s;}
+  .pills{display:flex;gap:8px;}
+  .streak-pill{display:flex;align-items:center;gap:4px;background:#fff;border:2px solid var(--border);border-radius:30px;padding:4px 12px;font-weight:900;font-size:13px;transition:.2s;}
+  .streak-pill.hot{background:linear-gradient(160deg,var(--coral),var(--yellow));color:#fff;animation:pulse .5s;}
+  @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.18)}100%{transform:scale(1)}}
+  .score-pill{font-family:"Fredoka",sans-serif;font-weight:700;font-size:13px;color:#fff;background:var(--mint);padding:5px 13px;border-radius:30px;border:2px solid var(--border);}
+  .progress{height:12px;background:#ece7f5;border:2px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:22px;}
+  .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sky),var(--violet),var(--coral));transition:width .4s;}
   .q-label{text-align:center;font-family:"Fredoka",sans-serif;font-weight:600;font-size:14px;color:var(--ink-soft);letter-spacing:1px;text-transform:uppercase;}
-  .romaji{text-align:center;font-family:"Fredoka",sans-serif;font-weight:700;font-size:66px;line-height:1.1;margin:6px 0 20px;animation:pop .35s;}
+  .romaji{text-align:center;font-family:"Fredoka",sans-serif;font-weight:700;font-size:66px;line-height:1.1;margin:6px 0 20px;color:var(--ink);animation:pop .35s;}
   @keyframes pop{from{opacity:0;transform:scale(.7);}to{opacity:1;transform:none;}}
   .options{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
   .opt{position:relative;cursor:pointer;border:3px solid var(--border);background:#fff;border-radius:22px;height:104px;display:flex;align-items:center;justify-content:center;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:46px;color:var(--ink);box-shadow:4px 4px 0 var(--shadow);transition:.12s;}
-  .opt:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--shadow);}
+  .opt:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--shadow);border-color:var(--violet);}
   .opt:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--shadow);}
-  .opt.correct{background:var(--mint);color:#fff;animation:bounce .45s;}
-  .opt.wrong{background:var(--red);color:#fff;animation:nope .4s;}
+  .opt.correct{background:linear-gradient(160deg,var(--mint),#13a87f);color:#fff;animation:bounce .45s;}
+  .opt.wrong{background:linear-gradient(160deg,var(--red),#d6303f);color:#fff;animation:nope .4s;}
   .opt.dim{opacity:.4;}
   .opt[disabled]{cursor:default;}
   @keyframes bounce{0%{transform:scale(1)}30%{transform:scale(1.12)}55%{transform:scale(.96)}100%{transform:scale(1)}}
@@ -96,52 +99,55 @@
   .feedback.no{color:var(--red);}
   .feedback.show{animation:pop .3s;}
   .confetti{position:fixed;top:-20px;width:11px;height:14px;z-index:99;pointer-events:none;border-radius:2px;}
+
   .result{text-align:center;}
-  .result .stamp{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:54px;color:#fff;background:var(--violet);width:96px;height:96px;display:inline-flex;align-items:center;justify-content:center;border-radius:28px;border:3px solid var(--border);box-shadow:5px 5px 0 var(--shadow);animation:bounce .6s;}
+  .result .stamp{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:54px;color:#fff;background:linear-gradient(160deg,var(--violet),var(--coral));width:96px;height:96px;display:inline-flex;align-items:center;justify-content:center;border-radius:28px;border:3px solid var(--border);box-shadow:5px 5px 0 var(--shadow);animation:bounce .6s;}
   .result h2{font-family:"Fredoka",sans-serif;font-weight:700;font-size:26px;margin:10px 0 4px;}
-  .result .pct{font-family:"Fredoka",sans-serif;font-weight:700;font-size:60px;color:var(--violet);line-height:1;margin:8px 0;}
-  .result .score-line{font-weight:800;font-size:15px;color:var(--ink-soft);}
-  .result .verdict{font-weight:700;font-size:15px;margin:14px 0 22px;line-height:1.55;}
-  .miss-box{text-align:left;background:#fff5f5;border:3px solid var(--border);border-radius:20px;padding:14px 16px;margin-bottom:22px;max-height:180px;overflow:auto;}
+  .result .pct{font-family:"Fredoka",sans-serif;font-weight:700;font-size:60px;line-height:1;margin:8px 0;background:linear-gradient(120deg,var(--violet),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .result .verdict{font-weight:700;font-size:15px;margin:10px 0 18px;line-height:1.55;color:var(--ink-soft);}
+  .statgrid{display:flex;gap:10px;margin-bottom:20px;}
+  .statgrid .s{flex:1;background:#f3eeff;border:2px solid var(--border);border-radius:16px;padding:12px 6px;}
+  .statgrid .s b{font-family:"Fredoka",sans-serif;font-size:22px;color:var(--violet-deep);display:block;}
+  .statgrid .s span{font-weight:800;font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.4px;}
+  .miss-box{text-align:left;background:#fff5f5;border:3px solid var(--border);border-radius:20px;padding:14px 16px;margin-bottom:20px;max-height:170px;overflow:auto;}
   .miss-box h3{font-family:"Fredoka",sans-serif;font-size:14px;color:var(--red);margin-bottom:10px;}
   .miss-grid{display:flex;flex-wrap:wrap;gap:8px;}
   .miss-chip{background:#fff;border:2px solid var(--border);border-radius:14px;padding:6px 12px;display:flex;align-items:baseline;gap:7px;}
   .miss-chip .h{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:24px;}
   .miss-chip .r{font-weight:800;font-size:13px;color:var(--ink-soft);}
+
   .hidden{display:none!important;}
-  .quiz-view{padding-top:26px;}
-  footer{text-align:center;margin-top:34px;font-weight:800;font-size:13px;color:var(--ink-soft);}
-  footer span{color:var(--violet);}
+  .quiz-view{padding-top:24px;}
+  footer{text-align:center;margin-top:34px;font-weight:800;font-size:13px;color:var(--txt-dim);}
+  footer span{color:var(--yellow);}
   @media(max-width:420px){.romaji{font-size:54px;}.opt{height:90px;font-size:40px;}}
 </style>
 </head>
 <body>
-<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<canvas id="bg"></canvas>
+<div class="glow g1"></div><div class="glow g2"></div>
 
 <nav>
   <div class="brand" id="brandHome"><span class="mark">あ</span> Patir</div>
-  <div class="navlinks"><a id="navHome">Beranda</a></div>
+  <div class="navright">
+    <a id="navHome">Beranda</a>
+    <div class="sound-btn" id="musicBtn" title="Musik latar on/off">🎵</div>
+    <div class="sound-btn" id="soundBtn" title="Efek suara on/off">🔊</div>
+  </div>
 </nav>
 
 <div class="wrap">
 
-  <!-- =================== HALAMAN DEPAN =================== -->
+  <!-- ============ BERANDA ============ -->
   <div id="landing">
     <section class="hero">
-      <div class="kicker">Blog Belajar Bahasa Jepang</div>
-      <h1>Yuk, Belajar <span class="hl">Hiragana &amp; Katakana</span></h1>
-      <p>Tempat aku berbagi catatan belajar bahasa Jepang — sekalian latihan lewat quiz interaktif.</p>
+      <div class="kicker">Belajar Bahasa Jepang</div>
+      <h1><span class="hl">Patir</span></h1>
     </section>
 
-    <div class="section-title">Quiz Kana<small>ひらがな・カタカナ 〜 masing-masing 46 karakter</small></div>
+    <div class="section-title">Mulai Latihan<small>ひらがな・カタカナ 〜 masing-masing 46 karakter</small></div>
 
     <div class="card intro" id="screen-start">
-      <p class="lead">Latih baca <b>hiragana &amp; katakana</b> sambil seru-seruan! Soal &amp; jawaban diacak tiap ronde.</p>
-      <div class="feat">
-        <div><span class="ic" style="background:var(--violet)"></span> 46 soal acak tiap main</div>
-        <div><span class="ic" style="background:var(--mint)"></span> Benar bikin hijau, salah merah</div>
-        <div><span class="ic" style="background:var(--yellow)"></span> Skor + rekap yang masih salah</div>
-      </div>
       <div class="label-q">Pilih jenis huruf:</div>
       <div class="mode-row" id="scriptRow">
         <button class="mode-btn active" data-script="hira"><span class="big">あ</span><span class="lab">Hiragana</span></button>
@@ -149,18 +155,23 @@
       </div>
       <div class="label-q">Pilih arah soal:</div>
       <div class="mode-row" id="modeRow">
-        <button class="mode-btn active" data-mode="r2h"><span class="big">a→あ</span><span class="lab">Romaji ke Hiragana</span></button>
-        <button class="mode-btn" data-mode="h2r"><span class="big">あ→a</span><span class="lab">Hiragana ke Romaji</span></button>
+        <button class="mode-btn active" data-mode="r2h"><span class="big">a→あ</span><span class="lab">Romaji ke Kana</span></button>
+        <button class="mode-btn" data-mode="h2r"><span class="big">あ→a</span><span class="lab">Kana ke Romaji</span></button>
       </div>
       <button class="btn" id="startBtn">Mulai! 〜 始める</button>
     </div>
   </div>
 
-  <!-- =================== HALAMAN QUIZ =================== -->
+  <!-- ============ QUIZ ============ -->
   <div id="screen-quiz" class="quiz-view hidden">
-    <div class="quiz-head"><h2 id="quizTitle">Quiz Hiragana</h2><small>Pilih jawaban yang benar</small></div>
     <div class="card">
-      <div class="topbar"><span class="counter" id="counter">Soal 1 / 46</span><span class="score-pill" id="scorePill">Benar: 0</span></div>
+      <div class="topbar">
+        <span class="counter" id="counter">Soal 1 / 46</span>
+        <div class="pills">
+          <span class="streak-pill" id="streakPill">🔥 0</span>
+          <span class="score-pill" id="scorePill">Benar: 0</span>
+        </div>
+      </div>
       <div class="progress"><span id="progressBar"></span></div>
       <div class="q-label" id="qLabel">Pilih hiragana untuk</div>
       <div class="romaji" id="promptText">a</div>
@@ -169,24 +180,29 @@
     </div>
   </div>
 
-  <!-- =================== HALAMAN HASIL =================== -->
+  <!-- ============ HASIL ============ -->
   <div id="screen-result" class="quiz-view hidden">
     <div class="card result">
       <div class="stamp" id="resultEmoji">満</div>
       <h2 id="resultTitle">Selesai!</h2>
       <div class="pct" id="resultPct">0%</div>
-      <div class="score-line" id="resultScore">0 dari 46 benar</div>
       <div class="verdict" id="resultVerdict"></div>
+      <div class="statgrid">
+        <div class="s"><b id="stScore">0/46</b><span>Skor</span></div>
+        <div class="s"><b id="stAcc">0%</b><span>Akurasi</span></div>
+        <div class="s"><b id="stStreak">0</b><span>Streak terbaik</span></div>
+      </div>
       <div class="miss-box hidden" id="missBox"><h3>Yang masih salah</h3><div class="miss-grid" id="missGrid"></div></div>
       <button class="btn" id="retryBtn" style="margin-bottom:11px;">Main Lagi (acak ulang)</button>
       <button class="btn ghost" id="homeBtn">Kembali ke Beranda</button>
     </div>
   </div>
 
-  <footer>© <span id="year"></span> Blog Patir · dibuat untuk belajar ひらがな</footer>
+  <footer>© <span id="year"></span> Patir · dibuat untuk belajar かな</footer>
 </div>
 
 <script>
+/* ============ DATA ============ */
 const HIRAGANA=[
  {h:"あ",r:"a"},{h:"い",r:"i"},{h:"う",r:"u"},{h:"え",r:"e"},{h:"お",r:"o"},
  {h:"か",r:"ka"},{h:"き",r:"ki"},{h:"く",r:"ku"},{h:"け",r:"ke"},{h:"こ",r:"ko"},
@@ -211,30 +227,115 @@ const KATAKANA=[
  {h:"ラ",r:"ra"},{h:"リ",r:"ri"},{h:"ル",r:"ru"},{h:"レ",r:"re"},{h:"ロ",r:"ro"},
  {h:"ワ",r:"wa"},{h:"ヲ",r:"wo"},{h:"ン",r:"n"}
 ];
+
+/* ============ BACKGROUND: kana melayang ============ */
+const cvs=document.getElementById("bg"),ctx=cvs.getContext("2d");
+const POOL=[...HIRAGANA,...KATAKANA].map(x=>x.h);
+const COLORS=["rgba(255,255,255,","rgba(255,210,60,","rgba(255,93,115,","rgba(61,212,255,","rgba(139,92,255,"];
+let W,H,parts=[];
+function resizeBg(){W=cvs.width=innerWidth;H=cvs.height=innerHeight;buildParts();}
+function buildParts(){
+  parts=[];const n=Math.min(40,Math.floor(W/30));
+  for(let i=0;i<n;i++){
+    parts.push({
+      ch:POOL[Math.floor(Math.random()*POOL.length)],
+      x:Math.random()*W,y:Math.random()*H,
+      size:16+Math.random()*40,
+      vy:-(0.15+Math.random()*0.55),
+      drift:(Math.random()-0.5)*0.3,
+      op:0.05+Math.random()*0.13,
+      col:COLORS[Math.floor(Math.random()*COLORS.length)]
+    });
+  }
+}
+function drawBg(){
+  ctx.clearRect(0,0,W,H);
+  parts.forEach(p=>{
+    ctx.font=p.size+'px "Zen Maru Gothic", sans-serif';
+    ctx.fillStyle=p.col+p.op+")";
+    ctx.fillText(p.ch,p.x,p.y);
+    p.y+=p.vy;p.x+=p.drift;
+    if(p.y<-p.size){p.y=H+p.size;p.x=Math.random()*W;p.ch=POOL[Math.floor(Math.random()*POOL.length)];}
+  });
+  requestAnimationFrame(drawBg);
+}
+addEventListener("resize",resizeBg);
+resizeBg();drawBg();
+
+/* ============ STATE ============ */
 let script="hira",mode="r2h",deck=[],idx=0,score=0,answered=false,missed=[];
+let streak=0,bestStreakRound=0;
 const DATA=()=>script==="hira"?HIRAGANA:KATAKANA;
 const scriptName=()=>script==="hira"?"Hiragana":"Katakana";
 const $=id=>document.getElementById(id);
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 
-// --- pindah "halaman" (view) ---
-function goView(name){
-  ["landing","screen-quiz","screen-result"].forEach(id=>$(id).classList.add("hidden"));
-  $(name).classList.remove("hidden");
-  window.scrollTo({top:0,behavior:"smooth"});
+/* ============ SUARA ============ */
+let actx,muted=false;
+try{muted=JSON.parse(localStorage.getItem("kq_muted"))||false;}catch(e){}
+function tone(freq,start,dur,type,vol){
+  const o=actx.createOscillator(),g=actx.createGain();
+  o.type=type||"sine";o.frequency.value=freq;o.connect(g);g.connect(actx.destination);
+  const t=actx.currentTime+start;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol||0.16,t+0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.start(t);o.stop(t+dur+0.02);
 }
+function sfx(kind){
+  if(muted)return;
+  try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    if(kind==="ok"){[523.25,659.25,783.99].forEach((f,i)=>tone(f,i*0.07,0.16,"triangle",0.15));}
+    else if(kind==="no"){tone(160,0,0.28,"sawtooth",0.13);tone(120,0.06,0.3,"sawtooth",0.11);}
+    else if(kind==="click"){tone(420,0,0.06,"square",0.07);}
+  }catch(e){}
+}
+
+/* ============ MUSIK LATAR (lo-fi loop, dibuat dengan kode) ============ */
+let mctx,mGain,musicOn=false,musicTimer=null,chordIdx=0;
+const CHORDS=[
+  [261.63,329.63,392.00,493.88],  // Cmaj7
+  [220.00,261.63,329.63,392.00],  // Am7
+  [174.61,220.00,261.63,329.63],  // Fmaj7
+  [196.00,246.94,293.66,349.23]   // G7
+];
+function playChord(){
+  if(!musicOn)return;
+  const ch=CHORDS[chordIdx%CHORDS.length];chordIdx++;
+  const now=mctx.currentTime,dur=4;
+  ch.forEach((f,i)=>{
+    const o=mctx.createOscillator(),g=mctx.createGain(),lp=mctx.createBiquadFilter();
+    o.type=i===0?"sine":"triangle";o.frequency.value=i===0?f/2:f;
+    lp.type="lowpass";lp.frequency.value=950;
+    o.connect(lp);lp.connect(g);g.connect(mGain);
+    g.gain.setValueAtTime(0,now);
+    g.gain.linearRampToValueAtTime(i===0?0.10:0.05,now+0.9);
+    g.gain.linearRampToValueAtTime(i===0?0.07:0.035,now+dur-0.6);
+    g.gain.exponentialRampToValueAtTime(0.0001,now+dur);
+    o.start(now);o.stop(now+dur+0.1);
+  });
+}
+function startMusic(){
+  mctx=mctx||new (window.AudioContext||window.webkitAudioContext)();
+  if(!mGain){mGain=mctx.createGain();mGain.gain.value=0.5;mGain.connect(mctx.destination);}
+  musicOn=true;chordIdx=0;playChord();musicTimer=setInterval(playChord,4000);
+}
+function stopMusic(){musicOn=false;if(musicTimer)clearInterval(musicTimer);}
+
+/* ============ VIEW ============ */
+function goView(name){["landing","screen-quiz","screen-result"].forEach(id=>$(id).classList.add("hidden"));$(name).classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});}
 function goHome(){goView("landing");}
 
 $("year").textContent=new Date().getFullYear();
-$("brandHome").onclick=goHome;
-$("navHome").onclick=goHome;
-$("scriptRow").onclick=e=>{const b=e.target.closest(".mode-btn");if(!b)return;$("scriptRow").querySelectorAll(".mode-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");script=b.dataset.script;};
-$("modeRow").onclick=e=>{const b=e.target.closest(".mode-btn");if(!b)return;$("modeRow").querySelectorAll(".mode-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");mode=b.dataset.mode;};
+$("soundBtn").textContent=muted?"🔇":"🔊";
+$("brandHome").onclick=goHome;$("navHome").onclick=goHome;
+$("musicBtn").onclick=()=>{if(musicOn){stopMusic();$("musicBtn").classList.remove("on");}else{startMusic();$("musicBtn").classList.add("on");}};
+$("soundBtn").onclick=()=>{muted=!muted;try{localStorage.setItem("kq_muted",JSON.stringify(muted));}catch(e){}$("soundBtn").textContent=muted?"🔇":"🔊";if(!muted)sfx("click");};
+$("scriptRow").onclick=e=>{const b=e.target.closest(".mode-btn");if(!b)return;sfx("click");$("scriptRow").querySelectorAll(".mode-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");script=b.dataset.script;};
+$("modeRow").onclick=e=>{const b=e.target.closest(".mode-btn");if(!b)return;sfx("click");$("modeRow").querySelectorAll(".mode-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");mode=b.dataset.mode;};
 $("startBtn").onclick=$("retryBtn").onclick=startQuiz;
 $("homeBtn").onclick=goHome;
-$("nextBtn").onclick=()=>{idx++;idx<deck.length?renderQuestion():finish();};
+$("nextBtn").onclick=()=>{sfx("click");idx++;idx<deck.length?renderQuestion():finish();};
 
-function startQuiz(){deck=shuffle(DATA());idx=0;score=0;missed=[];$("quizTitle").textContent="Quiz "+scriptName();goView("screen-quiz");renderQuestion();}
+function startQuiz(){sfx("click");deck=shuffle(DATA());idx=0;score=0;missed=[];streak=0;bestStreakRound=0;goView("screen-quiz");renderQuestion();}
 
 function renderQuestion(){
   answered=false;const q=deck[idx];
@@ -254,8 +355,10 @@ function renderQuestion(){
   $("nextBtn").classList.add("hidden");
   $("counter").textContent=`Soal ${idx+1} / ${deck.length}`;
   $("scorePill").textContent=`Benar: ${score}`;
+  $("streakPill").textContent="🔥 "+streak;
   $("progressBar").style.width=(idx/deck.length*100)+"%";
 }
+
 function choose(el,chosen,q){
   if(answered)return;answered=true;
   const correct=chosen.h===q.h;
@@ -268,17 +371,27 @@ function choose(el,chosen,q){
     else o.classList.add("dim");
   });
   const card=$("screen-quiz").querySelector(".card");
-  if(correct){score++;$("feedback").textContent="正解！ Benar";$("feedback").className="feedback ok show";card.classList.add("flash-ok");confetti();}
-  else{missed.push(q);$("feedback").textContent=`Yah salah 〜 ${q.r} = ${q.h}`;$("feedback").className="feedback no show";card.classList.add("flash-no");}
+  if(correct){
+    score++;streak++;bestStreakRound=Math.max(bestStreakRound,streak);
+    $("feedback").textContent="正解！ Benar";$("feedback").className="feedback ok show";
+    card.classList.add("flash-ok");confetti();sfx("ok");
+    const sp=$("streakPill");sp.textContent="🔥 "+streak;
+    if(streak>=3){sp.classList.add("hot");setTimeout(()=>sp.classList.remove("hot"),500);}
+  }else{
+    streak=0;missed.push(q);
+    $("feedback").textContent=`Yah salah 〜 ${q.r} = ${q.h}`;$("feedback").className="feedback no show";
+    card.classList.add("flash-no");sfx("no");$("streakPill").textContent="🔥 0";
+  }
   setTimeout(()=>card.classList.remove("flash-ok","flash-no"),500);
   $("scorePill").textContent=`Benar: ${score}`;
   $("progressBar").style.width=((idx+1)/deck.length*100)+"%";
   $("nextBtn").classList.remove("hidden");
   $("nextBtn").textContent=(idx<deck.length-1)?"Lanjut 〜 次へ":"Lihat Hasil 〜 結果";
 }
+
 function confetti(){
-  const colors=["#ff5d73","#ffc93c","#7c4dff","#1fbf8f","#c8eaff"];
-  for(let i=0;i<26;i++){
+  const colors=["#ff5d73","#ffd23c","#8b5cff","#1fc99a","#3dd4ff"];
+  for(let i=0;i<28;i++){
     const c=document.createElement("div");c.className="confetti";
     c.style.left=Math.random()*100+"vw";c.style.background=colors[Math.floor(Math.random()*colors.length)];
     c.style.transform=`rotate(${Math.random()*360}deg)`;document.body.appendChild(c);
@@ -287,16 +400,18 @@ function confetti(){
     setTimeout(()=>c.remove(),dur);
   }
 }
+
 function finish(){
   const total=deck.length,pct=Math.round(score/total*100);
   goView("screen-result");
-  $("resultPct").textContent=pct+"%";$("resultScore").textContent=`${score} dari ${total} benar`;
+  $("resultPct").textContent=pct+"%";
+  $("stScore").textContent=score+"/"+total;$("stAcc").textContent=pct+"%";$("stStreak").textContent=bestStreakRound;
   let emoji,title,verdict;
-  if(pct===100){emoji="満";title="Sempurna! 完璧";verdict="Gila, semua bener! Lanjut ke katakana atau dakuten (が、ざ、だ…) yuk.";}
+  if(pct===100){emoji="満";title="Sempurna! 完璧";verdict="Gila, semua bener! Lanjut ke katakana atau materi lanjutan yuk.";}
   else if(pct>=80){emoji="優";title="Keren banget!";verdict="Dikit lagi sempurna. Fokusin yang masih salah di bawah ya.";}
   else if(pct>=60){emoji="良";title="Lumayan nih!";verdict="Udah lewat setengah. Ulang beberapa kali biar makin lancar.";}
-  else if(pct>=40){emoji="頑";title="Terus latihan!";verdict="Masih goyang, tapi gpp. Coba hafalin per baris (あ-row, か-row…).";}
-  else{emoji="始";title="Baru mulai, semangat!";verdict="Wajar kok. Pelajari 5 karakter dulu, baru kuis lagi.";}
+  else if(pct>=40){emoji="頑";title="Terus latihan!";verdict="Masih goyang, tapi gpp. Coba hafalin per baris.";}
+  else{emoji="始";title="Baru mulai, semangat!";verdict="Wajar kok. Pelajari 5 karakter dulu, baru main lagi.";}
   $("resultEmoji").textContent=emoji;$("resultTitle").textContent=title;$("resultVerdict").textContent=verdict;
   if(pct>=80)confetti();
   const box=$("missBox"),grid=$("missGrid");
